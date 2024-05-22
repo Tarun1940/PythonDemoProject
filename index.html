@@ -26,17 +26,18 @@
     <button id="check-out">Check-out</button>
 
     <script>
-        document.getElementById('add-to-cart').addEventListener('click', function() {
-            alert('Item added to cart!');
-        });
+        async function callApi(endpoint) {
+            const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const data = await response.json();
+            alert(data.message);
+        }
 
-        document.getElementById('buy-now').addEventListener('click', function() {
-            alert('Proceed to buy now!');
-        });
-
-        document.getElementById('check-out').addEventListener('click', function() {
-            alert('Proceed to check-out!');
-        });
+        document.getElementById('add-to-cart').addEventListener('click', () => callApi('add-to-cart'));
+        document.getElementById('buy-now').addEventListener('click', () => callApi('buy-now'));
+        document.getElementById('check-out').addEventListener('click', () => callApi('check-out'));
     </script>
 </body>
 </html>
